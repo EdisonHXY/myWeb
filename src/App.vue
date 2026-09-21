@@ -660,7 +660,7 @@
         </div>
       </div>
 
-         <div
+      <div
         v-if="showAutoTestImage"
         class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
         @click="showAutoTestImage = false"
@@ -680,6 +680,31 @@
           <img
             src="/autest.png"
             alt="自动化测试软件放大图"
+            class="max-h-[80vh] w-full rounded-xl object-contain"
+          />
+        </div>
+      </div>
+
+      <div
+        v-if="showAoaImage"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+        @click="showAoaImage = false"
+      >
+        <div
+          class="relative w-full max-w-5xl rounded-2xl border border-slate-700 bg-slate-900 p-2 shadow-2xl"
+          @click.stop
+        >
+          <button
+            type="button"
+            @click="showAoaImage = false"
+            class="absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-lg text-slate-200 transition hover:bg-slate-800"
+            aria-label="关闭图片"
+          >
+            ×
+          </button>
+          <img
+            src="/Aoa.png"
+            alt="AOA放大图"
             class="max-h-[80vh] w-full rounded-xl object-contain"
           />
         </div>
@@ -906,6 +931,24 @@
               <p class="mb-4 text-xs leading-relaxed text-slate-300">
                 开发物理设备内部基于 B/S
                 架构的后台管理及通讯程序，使用户能直接通过标准浏览器远程管控设备。
+              </p>
+              <div
+                class="mb-4 overflow-hidden rounded-xl border border-slate-800/80 bg-slate-900/60"
+              >
+                <button
+                  type="button"
+                  @click="showAoaImage = true"
+                  class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
+                >
+                  <img
+                    src="/Aoa.png"
+                    alt="Aoa软件界面"
+                    class="h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                  />
+                </button>
+              </div>
+              <p class="mb-3 text-[11px] leading-relaxed text-cyan-300">
+                点击图片可放大查看：该自动化测试软件界面。
               </p>
               <div
                 class="mb-4 space-y-1 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3 text-xs"
@@ -1343,6 +1386,7 @@ const phoneCopied = ref(false);
 const showUavDefenseImage = ref(false);
 const showInterfaceImage = ref(false);
 const showAutoTestImage = ref(false);
+const showAoaImage = ref(false);
 
 const copyPhone = async () => {
   try {
