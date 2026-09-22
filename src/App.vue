@@ -98,7 +98,7 @@
               class="relative z-10 h-28 w-28 overflow-hidden rounded-2xl border-2 border-cyan-500/30 bg-slate-900/80 p-1 shadow-2xl sm:h-32 sm:w-32"
             >
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=400"
+                src=""
                 alt="胡雪源"
                 class="h-full w-full rounded-xl object-cover grayscale contrast-125 transition duration-500 group-hover:grayscale-0"
               />
