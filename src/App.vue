@@ -98,9 +98,14 @@
               class="relative z-10 h-28 w-28 overflow-hidden rounded-2xl border-2 border-cyan-500/30 bg-slate-900/80 p-1 shadow-2xl sm:h-32 sm:w-32"
             >
               <img
-                src=""
+                src="/avatar.webp"
                 alt="胡雪源"
-                class="h-full w-full rounded-xl object-cover grayscale contrast-125 transition duration-500 group-hover:grayscale-0"
+                class="h-full w-full rounded-full object-cover contrast-125 transition duration-500 group-hover:grayscale-0"
+                width="256"
+                height="256"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
               />
             </div>
             <div
@@ -628,9 +633,11 @@
             ×
           </button>
           <img
-            src="/uavdefense.png"
+            src="/uavdefense.webp"
             alt="无人机反制平台界面放大图"
             class="max-h-[80vh] w-full rounded-xl object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -653,9 +660,11 @@
             ×
           </button>
           <img
-            src="/interface.png"
+            src="/interface.webp"
             alt="MqttX 调试界面放大图"
             class="max-h-[80vh] w-full rounded-xl object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -678,9 +687,11 @@
             ×
           </button>
           <img
-            src="/autest.png"
+            src="/autest.webp"
             alt="自动化测试软件放大图"
             class="max-h-[80vh] w-full rounded-xl object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
@@ -703,13 +714,41 @@
             ×
           </button>
           <img
-            src="/Aoa.png"
+            src="/Aoa.webp"
             alt="AOA放大图"
             class="max-h-[80vh] w-full rounded-xl object-contain"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>
 
+      <div
+        v-if="showRfImage"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
+        @click="showRfImage = false"
+      >
+        <div
+          class="relative w-full max-w-5xl rounded-2xl border border-slate-700 bg-slate-900 p-2 shadow-2xl"
+          @click.stop
+        >
+          <button
+            type="button"
+            @click="showRfImage = false"
+            class="absolute -right-3 -top-3 flex h-8 w-8 items-center justify-center rounded-full border border-slate-700 bg-slate-900 text-lg text-slate-200 transition hover:bg-slate-800"
+            aria-label="关闭图片"
+          >
+            ×
+          </button>
+          <img
+            src="/rf.webp"
+            alt="RF放大图"
+            class="max-h-[80vh] w-full rounded-xl object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
       <section id="projects" class="mb-10">
         <div
           class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center"
@@ -793,9 +832,14 @@
                   class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
                 >
                   <img
-                    src="/uavdefense.png"
+                    src="/uavdefense.webp"
                     alt="无人机反制平台界面"
-                    class="h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    class="project-image h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    @load="revealImage"
+                    @error="revealImage"
                   />
                 </button>
               </div>
@@ -839,6 +883,90 @@
           </div>
 
           <div
+            v-if="projectCategory === 'all' || projectCategory === 'hardware'"
+            class="glass-card flex flex-col justify-between rounded-2xl border border-slate-800 p-5 transition hover:border-cyan-500/40"
+          >
+            <div>
+              <div class="mb-2 flex items-center justify-between gap-2">
+                <h3
+                  class="flex items-center gap-2 text-base font-bold text-white"
+                >
+                  <Radio class="h-4 w-4 text-emerald-400" />
+                  射视频一体机设备开发
+                </h3>
+                <span
+                  class="rounded border border-emerald-800 bg-emerald-950/60 px-2 py-0.5 font-mono text-[10px] text-emerald-300"
+                  >B/S 架构 / 嵌入式</span
+                >
+              </div>
+              <p class="mb-4 text-xs leading-relaxed text-slate-300">
+                开发物理设备内部基于 B/S
+                架构的后台管理及通讯程序，使用户能直接通过标准浏览器远程管控设备。
+              </p>
+              <div
+                class="mb-4 overflow-hidden rounded-xl border border-slate-800/80 bg-slate-900/60"
+              >
+                <button
+                  type="button"
+                  @click="showRfImage = true"
+                  class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
+                >
+                  <img
+                    src="/rf.webp"
+                    alt="射视频一体机软件界面"
+                    class="project-image h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    @load="revealImage"
+                    @error="revealImage"
+                  />
+                </button>
+              </div>
+              <p class="mb-3 text-[11px] leading-relaxed text-cyan-300">
+                点击图片可放大查看：实时监测设备内部的所有模块状态，可显示射频数据和视频数据，能够管理设备内部的业务功能。
+              </p>
+              <div
+                class="mb-4 space-y-1 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3 text-xs"
+              >
+                <div class="text-slate-400">
+                  <strong class="text-slate-200">WebUI 前端:</strong> 基于 Vue +
+                  ElementUI 搭建直观可视化界面。
+                </div>
+                <div class="text-slate-400">
+                  <strong class="text-slate-200">后端通信:</strong> 结合 HTTP 与
+                  WebSocket 实现低延迟即时推送，底层结合 Serial 串口、GPIO
+                  等操纵硬件模块。
+                </div>
+              </div>
+            </div>
+            <div
+              class="flex flex-wrap gap-1.5 border-t border-slate-800/60 pt-2"
+            >
+              <span
+                class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
+                >Vue / ElementUI</span
+              >
+              <span
+                class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
+                >WebSocket</span
+              >
+              <span
+                class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
+                >I2C</span
+              >
+              <span
+                class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
+                >HTTP API</span
+              >
+              <span
+                class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
+                >串口通信</span
+              >
+            </div>
+          </div>
+
+          <div
             v-if="projectCategory === 'all' || projectCategory === 'uav'"
             class="glass-card flex flex-col justify-between rounded-2xl border border-slate-800 p-5 transition hover:border-cyan-500/40"
           >
@@ -867,9 +995,14 @@
                   class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
                 >
                   <img
-                    src="/interface.png"
+                    src="/interface.webp"
                     alt="MqttX 调试界面"
-                    class="h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    class="project-image h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    @load="revealImage"
+                    @error="revealImage"
                   />
                 </button>
               </div>
@@ -941,14 +1074,19 @@
                   class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
                 >
                   <img
-                    src="/Aoa.png"
+                    src="/Aoa.webp"
                     alt="Aoa软件界面"
-                    class="h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    class="project-image h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    @load="revealImage"
+                    @error="revealImage"
                   />
                 </button>
               </div>
               <p class="mb-3 text-[11px] leading-relaxed text-cyan-300">
-                点击图片可放大查看：该自动化测试软件界面。
+                点击图片可放大查看：。
               </p>
               <div
                 class="mb-4 space-y-1 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3 text-xs"
@@ -959,8 +1097,7 @@
                 </div>
                 <div class="text-slate-400">
                   <strong class="text-slate-200">后端通信:</strong> 结合 HTTP 与
-                  WebSocket 实现低延迟即时推送，底层结合 Serial 串口、GPIO
-                  等操纵硬件模块。
+                  WebSocket 实现低延迟即时推送和控制。
                 </div>
               </div>
             </div>
@@ -977,7 +1114,7 @@
               >
               <span
                 class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
-                >GPIO</span
+                >Http</span
               >
               <span
                 class="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-300"
@@ -1015,9 +1152,14 @@
                   class="block w-full cursor-zoom-in bg-slate-950/30 text-left"
                 >
                   <img
-                    src="/autest.png"
+                    src="/autest.webp"
                     alt="自动化测试软件界面"
-                    class="h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    class="project-image h-48 w-full object-contain transition duration-300 hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    @load="revealImage"
+                    @error="revealImage"
                   />
                 </button>
               </div>
@@ -1387,6 +1529,11 @@ const showUavDefenseImage = ref(false);
 const showInterfaceImage = ref(false);
 const showAutoTestImage = ref(false);
 const showAoaImage = ref(false);
+const showRfImage = ref(false);
+
+const revealImage = (event) => {
+  event.currentTarget.classList.add("image-loaded");
+};
 
 const copyPhone = async () => {
   try {
@@ -1449,6 +1596,21 @@ body {
 .glass-card:hover {
   border-color: rgba(56, 189, 248, 0.3);
   box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2);
+}
+
+.project-image {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.project-image.image-loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-image {
+    transition: none;
+  }
 }
 
 ::-webkit-scrollbar {
